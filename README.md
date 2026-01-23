@@ -53,7 +53,7 @@ We implemented a professional Git branching strategy:
 ## 📥 Setup Instructions
 
 ### Prerequisites
-- Node.js (v18 or higher)
+- Node.js (v20 or higher)
 - Git
 
 ### Installation Steps
