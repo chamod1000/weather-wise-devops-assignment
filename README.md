@@ -34,7 +34,7 @@ WeatherWise is a modern, responsive weather dashboard built with Next.js and Mon
 We implemented a professional Git branching strategy:
 - `main` - **Production Branch**: Protected branch. Only deploys to Vercel after passing CI checks.
 - `develop` - **Integration Branch**: All feature branches are merged here first for testing.
-- `feature/*` - **Feature Branches**: Used for individual development (e.g., `feature/ui-design`, `feature/ci-setup`).
+- `branches/*` - **Feature Branches**: Used for individual development (e.g., `shani/ui-design`, `chamod/ci-setup`).
 
 ## 👨‍💻 Individual Contributions
 
