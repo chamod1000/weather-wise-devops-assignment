@@ -1,63 +1,164 @@
-# 🌤️ WeatherWise - Advanced DevOps & Cloud Computing Assignment
+# 🌤️ WeatherWise – Advanced DevOps & Cloud Computing Assignment
+---
+![Frontend](public/file.svg)
 
-WeatherWise is a modern, responsive weather dashboard built with Next.js and MongoDB. This project demonstrates a complete DevOps lifecycle, including automated CI/CD pipelines, cloud deployment, and advanced Git collaboration workflows.
-
-## 👥 Group Information
-
+## 👥 Group Members
 | Student Name | Student ID | Role |
 |--------------|------------|------|
 | **O.P.C Akalanka** | ITBIN-2313-0007 | **DevOps Engineer** |
 | **K.A. Shani Randika** | ITBIN-2313-0089 | **Full Stack Developer** |
 
-## 🚀 Live Deployment
+## 📌 Project Description
+
+WeatherWise is a modern, responsive weather dashboard application developed using Next.js 14 and MongoDB. It features a fully automated DevOps lifecycle, including CI/CD pipelines, cloud deployment, and secure environment management.
+The platform allows users to check real-time weather, view 5-day forecasts, and save favorite cities to a persistent database.
+This project simulates a real-world software engineering environment by implementing professional Git workflows, automated testing, branch protection rules, and cloud infrastructure management.
+
+## 🌍 Live Deployment
+
 🔗 **Live Application URL:** https://weather-wise-devops-assignment.vercel.app/
 
 ## ⚙️ Build Status
-![CI Pipeline](https://github.com/chamod1000/weather-wise-devops-assignment/workflows/CI%20Pipeline/badge.svg)
-![Deploy to Production](https://github.com/chamod1000/weather-wise-devops-assignment/workflows/Deploy%20to%20Production/badge.svg)
+![CI Pipeline](https://github.com/chamod1000/weather-wise-devops-assignment/actions/workflows/ci.yml/badge.svg)
+![Deploy to Production](https://github.com/chamod1000/weather-wise-devops-assignment/actions/workflows/deploy.yml/badge.svg)
+
+---
 
 ## 🛠️ Technologies Used
-- **Frontend:** Next.js 14, React, Tailwind CSS
+
+- **Frontend:** Next.js 14 (React), Tailwind CSS
 - **Backend:** Next.js API Routes, MongoDB (Mongoose)
-- **CI/CD:** GitHub Actions (Automated Testing & Deployment)
-- **Deployment Platform:** Vercel
+- **Runtime:** Node.js 20+
 - **Version Control:** Git & GitHub
+- **CI/CD:** GitHub Actions (Automated Testing & Deployment)
+- **Cloud Platform:** Vercel
+- **External APIs:** OpenWeatherMap API
 
-## 🌟 Features
-- **Real-time Weather:** Fetches live weather data using OpenWeatherMap API.
-- **5-Day Forecast:** Displays weather trends for the upcoming days.
-- **Favorites System:** Allows users to save favorite cities to a persistent MongoDB database.
-- **City Search:** Search functionality for cities worldwide.
-- **Responsive Design:** Fully responsive UI with Glassmorphism effects.
+---
+## ✨ Features
 
-## 🌿 Branch Strategy
-We implemented a professional Git branching strategy:
-- `main` - **Production Branch**: Protected branch. Only deploys to Vercel after passing CI checks.
-- `develop` - **Integration Branch**: All feature branches are merged here first for testing.
-- `branches/*` - **Feature Branches**: Used for individual development (e.g., `shani/ui-design`, `chamod/ci-setup`).
+### 🌐 Frontend & UX
+The frontend is built with a glassmorphism-inspired UI using Tailwind CSS, ensuring a visually stunning and responsive experience across all devices. It includes dynamic weather visualizations, a seamless search experience, and an interactive dashboard for managing favorite locations.
 
-## 👨‍💻 Individual Contributions
+### 💾 Backend & Data Management
+The application connects to a MongoDB Atlas cluster to store user preferences and favorite cities. Custom API routes handle secure communication between the client and the database, ensuring data integrity and fast retrieval times.
 
-### 1. O.P.C Akalanka (DevOps Engineer)
-- **Repository Setup:** Initialized the Git repository and configured `.gitignore` to secure sensitive files.
+### ⚙️ DevOps & Automation
+The project features a robust DevOps implementation:
+- **CI Pipeline:** Automatically installs dependencies, runs linting checks, and builds the project on every push to ensure code quality.
+- **CD Pipeline:** Automatically deploys the application to Vercel only when changes are merged into the `main` branch.
+- **Security:** Secret keys (API keys, DB passwords) are managed via GitHub Secrets and never exposed in the code.
+
+---
+
+## 🌱 Branch Strategy
+
+We implemented a professional Git branching strategy to ensure code stability:
+
+- `main` – **Production Branch**: Protected branch. Only deploys to Vercel after passing CI checks.
+- `develop` – **Integration Branch**: All feature branches are merged here first for testing.
+- `feature/*` – **Feature Branches**: Used for individual development (e.g., `feature/ui-design`, `feature/devops-setup`).
+
+---
+
+## 🧑‍💻 Individual Contributions & Commit Evidence
+
+We actively contributed to the project using professional Git workflows including **feature branches, pull requests, and merge conflict resolution.** Below is a detailed breakdown of each member’s contributions.
+
+---
+
+### 👨‍💻 O.P.C Akalanka – ITBIN-2313-0007
+**Role:** DevOps Engineer
+
+**Key Contributions:**
+- **Repository Setup:** Initialized the Git repository, configured `.gitignore`, and set up branch protection rules.
 - **CI/CD Pipelines:** Created `.github/workflows/ci.yml` for automated testing and `deploy.yml` for production deployment.
-- **Vercel Configuration:** Connected the repository to Vercel and managed Environment Variables (`MONGODB_URI`, `VERCEL_TOKEN`).
-- **Documentation:** Structured and updated the `README.md` with project details.
+- **Infrastructure Management:** Connected the repository to Vercel and managed Environment Variables (`MONGODB_URI`, `VERCEL_TOKEN`).
+- **Security Enhancements:** Fixed secret scanning alerts by removing sensitive files (`.env.local`) from history and implementing GitHub Secrets.
+- **Maintenance:** Upgraded Node.js runtime versions (v18 to v20) in workflows to match Next.js requirements.
+- **Documentation:** Structured the project documentation and maintained the `README.md`.
 
-### 2. K.A. Shani Randika (Full Stack Developer)
-- **UI/UX Development:** Designed and built the responsive interface using Tailwind CSS and Next.js.
-- **Backend Integration:** Connected the application to MongoDB Atlas for storing user data.
-- **Feature Implementation:** Developed the City Search, Current Weather display, and Forecast components.
-- **API Handling:** Managed integration with OpenWeatherMap API.
+**Major Commits & Pull Requests:**
+- `fix: upgrade node to v20 and remove .env.local`
+- `fix: add env vars to deploy pipeline`
+- `ci: setup github actions workflows`
+- `docs: update readme with project details`
 
-## 📥 Setup Instructions
+---
 
-### Prerequisites
+### 👩‍💻 K.A. Shani Randika – ITBIN-2313-0089
+**Role:** Full Stack Developer
+
+**Key Contributions:**
+- **UI/UX Design:** Designed the responsive interface using Tailwind CSS and Next.js components.
+- **Backend Integration:** Developed MongoDB schemas (`User.js`, `Favorite.js`) and connected the application to MongoDB Atlas.
+- **Feature Development:** Implemented the City Search, Current Weather display, and 5-Day Forecast logic.
+- **API Handling:** Managed integration with OpenWeatherMap API and created internal API routes.
+- **Code cleanup:** Optimized folder structure and removed unused files.
+
+**Major Commits & Pull Requests:**
+- `feat: implement weather dashboard ui`
+- `feat: connect mongodb database`
+- `fix: resolve api route errors`
+- `chore: cleanup directory structure`
+
+---
+
+### ✅ Collaboration Evidence
+
+- Multiple feature branches created and merged (`chamod`, `develop`).
+- Successful execution of CI/CD pipelines visible in "Actions" tab.
+- Merge conflicts intentionally handled during pipeline configuration.
+- clear separation of concerns between DevOps and Development tasks.
+
+---
+# ⚙️ Setup Instructions
+
+## Prerequisites
 - Node.js (v20 or higher)
 - Git
 
-### Installation Steps
+## Installation Steps
 
 1. **Clone the repository**
    ```bash
    git clone [https://github.com/chamod1000/weather-wise-devops-assignment.git](https://github.com/chamod1000/weather-wise-devops-assignment.git)
+
+## 🗂️ Repository Structure
+
+```text
+weather-wise-devops-assignment/
+├── .github/
+│   └── workflows/               <-- ⚙️ DevOps Automation
+│       ├── ci.yml               # CI Pipeline (Automated Testing)
+│       └── deploy.yml           # CD Pipeline (Vercel Deployment)
+├── public/                      <-- 🖼️ Static Assets (Icons/SVGs)
+├── src/
+│   ├── app/                     <-- 🌐 App Router (Frontend & API)
+│   │   ├── admin/               # Admin Dashboard
+│   │   ├── api/                 # 🔌 Backend API Routes
+│   │   │   ├── admin/
+│   │   │   ├── auth/
+│   │   │   ├── weather/
+│   │   │   └── ...
+│   │   ├── components/          # Page-specific components
+│   │   ├── globals.css          # Global Styles
+│   │   ├── layout.js            # Root Layout
+│   │   └── page.js              # Home Page
+│   ├── components/              <-- 🧩 Reusable UI Components
+│   │   ├── Navbar.js
+│   │   ├── WeatherMap.js
+│   │   └── ...
+│   ├── context/                 <-- 🧠 State Management
+│   │   └── GlobalContext.js
+│   ├── lib/                     <-- 🛠️ Utilities & Configs
+│   │   ├── db.js                # MongoDB Connection
+│   │   └── logger.js            # Error Logger
+│   └── models/                  <-- 🗄️ Database Schemas
+│       ├── User.js
+│       ├── ActivityLog.js
+│       └── ...
+├── .env.local                   <-- 🔐 Environment Variables
+├── .gitignore                   <-- Git Ignore Rules
+├── package.json                 <-- Project Dependencies
+└── README.md                    <-- Project Documentation
