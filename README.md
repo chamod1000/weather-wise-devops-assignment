@@ -1,6 +1,6 @@
 # 🌤️ WeatherWise – Advanced DevOps & Cloud Computing Assignment
 ---
-![Frontend](public/file.svg)
+![Project Preview](public/gif/preview.gif)
 
 ## 👥 Group Members
 | Student Name | Student ID | Role |
