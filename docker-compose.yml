@@ -1,0 +1,119 @@
+# ============================================
+# Docker Compose Configuration
+# WeatherWise Application Stack
+# ============================================
+# This file orchestrates a multi-container application with:
+# - MongoDB database (data persistence)
+# - Next.js web application (weather dashboard)
+# - Custom bridge network for inter-service communication
+
+services:
+  # ==========================================
+  # MongoDB Database Service
+  # ==========================================
+  mongodb:
+    # Using official MongoDB image (latest stable version)
+    image: mongo:latest
+    
+    # Expose MongoDB port to host for development/debugging
+    # In production, consider removing this or using internal networking only
+    ports:
+      - "27017:27017"
+    
+    # Persist database data using named volume
+    # Data survives container restarts and removals
+    volumes:
+      - mongodb_data:/data/db
+    
+    # Connect to custom network for service-to-service communication
+    networks:
+      - weather-network
+    
+    # Health check ensures database is ready before dependent services start
+    # Prevents "connection refused" errors during startup
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s      # Check every 10 seconds
+      timeout: 5s        # Fail if check takes longer than 5 seconds
+      retries: 5         # Retry 5 times before marking as unhealthy
+      start_period: 5s   # Grace period before first check
+    
+    # Resource limits prevent this service from consuming excessive resources
+    # Important for multi-tenant or shared hosting environments
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'      # Maximum 0.5 CPU cores
+          memory: 512M     # Maximum 512MB RAM
+        reservations:
+          cpus: '0.25'     # Guaranteed 0.25 CPU cores
+          memory: 256M     # Guaranteed 256MB RAM
+
+  # ==========================================
+  # Weather Application Service
+  # ==========================================
+  weather-app:
+    # Build from local Dockerfile instead of using pre-built image
+    build:
+      context: .              # Build context is current directory
+      dockerfile: Dockerfile  # Use custom multi-stage Dockerfile
+    
+    # Environment variables that override .env.local values
+    # MONGODB_URI uses service name 'mongodb' for internal DNS resolution
+    environment:
+      MONGODB_URI: "mongodb://mongodb:27017/weather-dashboard"
+    
+    # Load additional environment variables from .env.local
+    # Contains API keys and secrets (excluded from version control)
+    env_file:
+      - .env.local
+    
+    # Map container port 3000 to host port 3000
+    # Access application at http://localhost:3000
+    ports:
+      - "3000:3000"
+    
+    # Connect to same network as MongoDB for inter-service communication
+    networks:
+      - weather-network
+    
+    # Dependency management: wait for MongoDB to be healthy before starting
+    # Ensures database is ready to accept connections
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    
+    # Automatically restart container if it crashes
+    # Options: no, always, on-failure, unless-stopped
+    restart: always
+    
+    # Resource allocation for the web application
+    # Adjust based on your application's actual resource requirements
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'      # Maximum 1 CPU core
+          memory: 1G       # Maximum 1GB RAM
+        reservations:
+          cpus: '0.5'      # Guaranteed 0.5 CPU cores
+          memory: 512M     # Guaranteed 512MB RAM
+
+# ============================================
+# Named Volumes
+# ============================================
+# Volumes provide persistent storage that survives container lifecycle
+volumes:
+  mongodb_data:
+    # Uses local driver (stores data on host filesystem)
+    # Location: /var/lib/docker/volumes/ (Linux) or Docker Desktop storage (Windows/Mac)
+
+# ============================================
+# Networks
+# ============================================
+# Custom bridge network enables:
+# - Service discovery (containers can find each other by service name)
+# - Isolation from other Docker networks
+# - Custom DNS resolution
+networks:
+  weather-network:
+    driver: bridge  # Bridge driver for same-host communication
