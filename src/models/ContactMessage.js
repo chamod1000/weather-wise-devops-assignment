@@ -15,8 +15,21 @@ const ContactMessageSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['new', 'read', 'replied'],
+    enum: ['new', 'read', 'replied', 'resolved'],
     default: 'new',
+  },
+  reply: {
+    type: String,
+  },
+  repliedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  repliedAt: {
+    type: Date,
+  },
+  notes: {
+    type: String,
   },
   createdAt: {
     type: Date,

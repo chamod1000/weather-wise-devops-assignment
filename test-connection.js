@@ -3,7 +3,6 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
-// Simple .env parser since we might not have dotenv package
 function loadEnv() {
     try {
         const envFile = fs.readFileSync('.env.local', 'utf8');

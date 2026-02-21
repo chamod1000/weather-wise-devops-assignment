@@ -2,14 +2,6 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable');
-}
-
-if (MONGODB_URI.includes('<db_password>')) {
-  throw new Error('Invalid MONGODB_URI: Please replace <db_password> with your actual MongoDB password in .env.local');
-}
-
 let cached = global.mongoose;
 
 if (!cached) {
@@ -17,6 +9,14 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  if (!MONGODB_URI) {
+    throw new Error('Please define the MONGODB_URI environment variable');
+  }
+
+  if (MONGODB_URI.includes('<db_password>')) {
+    throw new Error('Invalid MONGODB_URI: Please replace <db_password> with your actual MongoDB password in .env.local');
+  }
+
   if (cached.conn) {
     return cached.conn;
   }

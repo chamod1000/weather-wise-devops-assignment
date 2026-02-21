@@ -18,6 +18,46 @@ This project simulates a real-world software engineering environment by implemen
 
 🔗 **Live Application URL:** https://weather-wise-devops-assignment.vercel.app/
 
+---
+
+## 🔐 Admin Panel Access
+
+### 📍 Admin Panel URL
+**Local:** http://localhost:3000/admin  
+**Live:** https://weather-wise-devops-assignment.vercel.app/admin
+
+### 👤 Demo Admin Credentials
+For evaluation and testing purposes:
+- **Email:** `admin@gmail.com`
+- **Password:** `admin1234`
+
+### 🚀 Quick Setup Guide
+
+#### Method 1: Create Demo Admin (Recommended for Testing)
+```bash
+npm run admin:create
+```
+This automatically creates the demo admin account with the credentials above.
+
+#### Method 2: Promote Your Own Account
+```bash
+# 1. Register a user account through the website
+# 2. Run this command with your email:
+npm run admin:promote your-email@example.com
+```
+
+### ✨ Admin Panel Features
+- **📊 Analytics Dashboard** - User growth charts, top cities, key metrics
+- **👥 User Management** - Bulk operations, role management, CSV export
+- **💬 Message Moderation** - Reply to messages, status tracking, internal notes
+- **📍 Location Management** - Featured cities, popular rankings
+- **🔔 Notification System** - Broadcast messages with targeting options
+- **📈 API Monitoring** - Performance metrics, endpoint statistics
+- **📋 Activity Logs** - Complete audit trail of system events
+- **⚙️ System Settings** - Rate limits, maintenance mode, data backup
+
+---
+
 ## ⚙️ Build Status
 ![CI Pipeline](https://github.com/chamod1000/weather-wise-devops-assignment/actions/workflows/ci.yml/badge.svg)
 ![Deploy to Production](https://github.com/chamod1000/weather-wise-devops-assignment/actions/workflows/deploy.yml/badge.svg)
@@ -32,6 +72,7 @@ This project simulates a real-world software engineering environment by implemen
 - **Version Control:** Git & GitHub
 - **CI/CD:** GitHub Actions (Automated Testing & Deployment)
 - **Cloud Platform:** Vercel
+- **Containerization:** Docker & Docker Compose
 - **External APIs:** OpenWeatherMap API
 
 ---
@@ -47,7 +88,15 @@ The application connects to a MongoDB Atlas cluster to store user preferences an
 The project features a robust DevOps implementation:
 - **CI Pipeline:** Automatically installs dependencies, runs linting checks, and builds the project on every push to ensure code quality.
 - **CD Pipeline:** Automatically deploys the application to Vercel only when changes are merged into the `main` branch.
-- **Security:** Secret keys (API keys, DB passwords) are managed via GitHub Secrets and never exposed in the code.
+- **Docker Containerization:** Multi-stage Dockerfile for optimized production builds, with Docker Compose orchestration for local development.
+- **Security:** Secret keys (API keys, DB passwords) are managed via GitHub Secrets and environment variables, never exposed in the code.
+
+### 🔐 Admin Access Control
+The application includes a comprehensive role-based access control (RBAC) system with JWT-based authentication and middleware protection. Admins have access to an exclusive admin panel with 8 feature categories including analytics dashboard, user management, message moderation, location management, notification system, API monitoring, activity logs, and system settings.
+
+> 📖 **See the [Admin Panel Access](#-admin-panel-access) section above for login credentials and setup instructions**
+
+> 📖 **For detailed Docker architecture and deployment instructions, see [DOCKER_INSTRUCTIONS.md](DOCKER_INSTRUCTIONS.md)**
 
 ---
 
@@ -114,15 +163,129 @@ We actively contributed to the project using professional Git workflows includin
 ---
 # ⚙️ Setup Instructions
 
-## Prerequisites
+## 🐳 Docker Deployment (Recommended)
+
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed (includes Docker Engine & Docker Compose)
+- Git (for cloning the repository)
+
+### Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/chamod1000/weather-wise-devops-assignment.git
+   cd weather-wise-devops-assignment
+   ```
+
+2. **Create environment configuration**
+   
+   Create a `.env.local` file in the project root with the following variables:
+   ```env
+   # OpenWeatherMap API Key (Get from https://openweathermap.org/api)
+   OPENWEATHER_API_KEY=your_api_key_here
+   
+   # MongoDB Connection (pre-configured for Docker)
+   MONGODB_URI=mongodb://mongodb:27017/weather-dashboard
+   
+   # JWT Secret for Authentication (generate with: openssl rand -base64 32)
+   JWT_SECRET=your_jwt_secret_key_here
+   ```
+
+3. **Build and run the application**
+   ```bash
+   docker-compose up --build
+   ```
+   
+   The `--build` flag ensures images are rebuilt with latest code changes.
+   Initial build takes 3-5 minutes as it downloads dependencies.
+
+4. **Access the application**
+   
+   Once you see "Ready in [x]ms" in the terminal:
+   - **Application:** http://localhost:3000
+   - **Database:** MongoDB running on port 27017 (internal)
+
+### Docker Commands Reference
+
+| Command | Description |
+|---------|-------------|
+| `docker-compose up` | Start all services (use cached images) |
+| `docker-compose up --build` | Rebuild images and start services |
+| `docker-compose up -d` | Start services in detached mode (background) |
+| `docker-compose down` | Stop and remove containers |
+| `docker-compose down -v` | Stop containers and delete volumes (⚠️ deletes data) |
+| `docker-compose logs -f` | View real-time logs from all services |
+| `docker-compose ps` | List running containers |
+| `docker-compose exec weather-app sh` | Access application container shell |
+
+### Environment Variables
+
+| Variable | Required | Description | Default |
+|----------|----------|-------------|---------|
+| `OPENWEATHER_API_KEY` | ✅ Yes | API key from OpenWeatherMap | None |
+| `MONGODB_URI` | ✅ Yes | MongoDB connection string | `mongodb://mongodb:27017/weather-dashboard` |
+| `JWT_SECRET` | ✅ Yes | Secret key for JWT authentication | None |
+| `NODE_ENV` | No | Environment mode | `production` (in Docker) |
+
+### Troubleshooting Docker Issues
+
+**Problem:** "Connection refused" when connecting to MongoDB
+- **Solution:** MongoDB health check ensures it's ready. Wait 10-15 seconds after startup.
+
+**Problem:** Changes not reflected after rebuild
+- **Solution:** Clear Docker cache: `docker-compose build --no-cache`
+
+**Problem:** Port 3000 or 27017 already in use
+- **Solution:** Stop conflicting services or change ports in `docker-compose.yml`
+
+**Problem:** Out of disk space
+- **Solution:** Clean unused Docker resources: `docker system prune -a --volumes`
+
+---
+
+## 💻 Local Development (Without Docker)
+
+### Prerequisites
 - Node.js (v20 or higher)
+- MongoDB installed locally or MongoDB Atlas account
 - Git
 
 ## Installation Steps
 
 1. **Clone the repository**
    ```bash
-   git clone [https://github.com/chamod1000/weather-wise-devops-assignment.git](https://github.com/chamod1000/weather-wise-devops-assignment.git)
+   git clone https://github.com/chamod1000/weather-wise-devops-assignment.git
+   cd weather-wise-devops-assignment
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   
+   Create `.env.local` with:
+   ```env
+   OPENWEATHER_API_KEY=your_api_key_here
+   MONGODB_URI=mongodb://localhost:27017/weather-dashboard  # or your MongoDB Atlas URI
+   JWT_SECRET=your_jwt_secret_key_here
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the application**
+   
+   Open http://localhost:3000 in your browser
+
+6. **Setup Admin Access (Optional)**
+   
+   See the [Admin Panel Access](#-admin-panel-access) section above for detailed setup instructions.
+
+---
 
 ## 🗂️ Repository Structure
 
@@ -158,7 +321,11 @@ weather-wise-devops-assignment/
 │       ├── User.js
 │       ├── ActivityLog.js
 │       └── ...
-├── .env.local                   <-- 🔐 Environment Variables
+├── .env.local                   <-- 🔐 Environment Variables (git-ignored)
 ├── .gitignore                   <-- Git Ignore Rules
+├── .dockerignore                <-- 🐳 Docker Build Exclusions
+├── docker-compose.yml           <-- 🐳 Multi-Container Orchestration
+├── Dockerfile                   <-- 🐳 Container Image Definition
+├── DOCKER_INSTRUCTIONS.md       <-- 📖 Docker Architecture Documentation
 ├── package.json                 <-- Project Dependencies
 └── README.md                    <-- Project Documentation
