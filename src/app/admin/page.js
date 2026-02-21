@@ -40,9 +40,8 @@ export default function AdminDashboard() {
   return (
     <div className="p-8 bg-[#F6F6F8] min-h-screen">
         <h2 className="text-3xl font-bold text-slate-800 mb-2">Dashboard Overview</h2>
-        <p className="text-slate-500 mb-8">Monitor your application&apos;s performance and user activity</p>
+        <p className="text-slate-500 mb-8">Monitor your application's performance and user activity</p>
         
-        {/* Key Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
                 <div className="flex items-center justify-between mb-4">
@@ -112,9 +111,7 @@ export default function AdminDashboard() {
             </div>
         </div>
 
-        {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            {/* User Growth Chart */}
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <div className="flex items-center gap-3 mb-4">
                     <TrendingUp className="text-blue-600" size={20} />
@@ -123,29 +120,14 @@ export default function AdminDashboard() {
                 <ResponsiveContainer width="100%" height={250}>
                     <LineChart data={stats.userGrowth}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                        <XAxis 
-                            dataKey="date" 
-                            tick={{ fontSize: 11 }}
-                            tickFormatter={(date) => new Date(date).getDate()}
-                        />
+                        <XAxis dataKey="date" tick={{ fontSize: 11 }} tickFormatter={(date) => new Date(date).getDate()} />
                         <YAxis tick={{ fontSize: 11 }} />
-                        <Tooltip 
-                            contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
-                            labelFormatter={(date) => new Date(date).toLocaleDateString()}
-                        />
-                        <Line 
-                            type="monotone" 
-                            dataKey="count" 
-                            stroke="#3b82f6" 
-                            strokeWidth={2}
-                            dot={{ fill: '#3b82f6', r: 3 }}
-                            name="New Users"
-                        />
+                        <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }} labelFormatter={(date) => new Date(date).toLocaleDateString()} />
+                        <Line type="monotone" dataKey="count" stroke="#3b82f6" strokeWidth={2} dot={{ fill: '#3b82f6', r: 3 }} name="New Users" />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
 
-            {/* Top Cities Chart */}
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <div className="flex items-center gap-3 mb-4">
                     <MapPin className="text-green-600" size={20} />
@@ -155,13 +137,7 @@ export default function AdminDashboard() {
                     <ResponsiveContainer width="100%" height={250}>
                         <BarChart data={stats.topCities}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                            <XAxis 
-                                dataKey="name" 
-                                tick={{ fontSize: 11 }}
-                                angle={-45}
-                                textAnchor="end"
-                                height={80}
-                            />
+                            <XAxis dataKey="name" tick={{ fontSize: 11 }} angle={-45} textAnchor="end" height={80} />
                             <YAxis tick={{ fontSize: 11 }} />
                             <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }} />
                             <Bar dataKey="count" fill="#10b981" radius={[8, 8, 0, 0]} name="Users" />
@@ -175,7 +151,6 @@ export default function AdminDashboard() {
             </div>
         </div>
 
-        {/* Activity Overview */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
             <div className="flex items-center gap-3 mb-4">
                 <Activity className="text-purple-600" size={20} />
