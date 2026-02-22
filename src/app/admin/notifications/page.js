@@ -22,16 +22,6 @@ export default function NotificationsPage() {
     expiresAt: '',
   });
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/');
-    } else if (!isAdmin(user)) {
-      router.push('/');
-    } else {
-      fetchNotifications();
-    }
-  }, [user, router]);
-
   const fetchNotifications = async () => {
     try {
       const res = await axios.get('/api/admin/notifications');
@@ -43,6 +33,17 @@ export default function NotificationsPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/');
+    } else if (!isAdmin(user)) {
+      router.push('/');
+    } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      fetchNotifications();
+    }
+  }, [user, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

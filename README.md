@@ -26,24 +26,31 @@ This project simulates a real-world software engineering environment by implemen
 **Local:** http://localhost:3000/admin  
 **Live:** https://weather-wise-devops-assignment.vercel.app/admin
 
-### 👤 Demo Admin Credentials
-For evaluation and testing purposes:
+### � How to Access Admin Panel
+
+The admin panel has a separate login interface. When you access the admin URL, you'll be directed to a dedicated admin login page.
+
+**Admin Credentials:**
 - **Email:** `admin@gmail.com`
 - **Password:** `admin1234`
 
-### 🚀 Quick Setup Guide
+**Steps to Access:**
+1. Navigate to `/admin` URL (local or live)
+2. Enter admin credentials in the login form
+3. You'll be automatically redirected to the admin dashboard
 
-#### Method 1: Create Demo Admin (Recommended for Testing)
-```bash
-npm run admin:create
-```
-This automatically creates the demo admin account with the credentials above.
+**Note:** Admin users have separate authentication and are automatically redirected to the admin panel upon login, not the regular user dashboard.
 
-#### Method 2: Promote Your Own Account
+### 👨‍💻 Creating Admin Accounts
+
+If you need to create additional admin accounts or promote existing users to admin:
+
 ```bash
-# 1. Register a user account through the website
-# 2. Run this command with your email:
+# Promote any existing user to admin role
 npm run admin:promote your-email@example.com
+
+# Or create a new admin account
+npm run admin:create
 ```
 
 ### ✨ Admin Panel Features

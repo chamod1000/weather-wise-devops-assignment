@@ -100,11 +100,36 @@ export default function APIMonitoring() {
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
           <h3 className="text-lg font-bold text-slate-800 mb-4">API Endpoint Usage</h3>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={stats.endpointStats || []}>
+            <BarChart data={stats.endpointStats || []} margin={{ bottom: 60 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="endpoint" tick={{ fontSize: 11 }} angle={-45} textAnchor="end" height={100} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+              <XAxis 
+                dataKey="endpoint" 
+                tick={{ fontSize: 12, fill: '#475569' }}
+                angle={-35} 
+                textAnchor="end" 
+                height={80}
+                tickFormatter={(value) => {
+                  // Format endpoint names to be more readable
+                  const name = value.replace('/api/', '').replace('/*', '');
+                  return name.charAt(0).toUpperCase() + name.slice(1);
+                }}
+              />
+              <YAxis 
+                tick={{ fontSize: 12, fill: '#475569' }}
+                label={{ value: 'API Calls', angle: -90, position: 'insideLeft', style: { fontSize: 12, fill: '#64748b' } }}
+              />
+              <Tooltip 
+                contentStyle={{ 
+                  borderRadius: '12px', 
+                  border: '1px solid #e2e8f0',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                  fontSize: '13px'
+                }}
+                labelFormatter={(value) => {
+                  const name = value.replace('/api/', '').replace('/*', '');
+                  return name.charAt(0).toUpperCase() + name.slice(1) + ' API';
+                }}
+              />
               <Bar dataKey="calls" fill="#3b82f6" radius={[8, 8, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>

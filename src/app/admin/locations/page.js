@@ -22,16 +22,6 @@ export default function LocationsPage() {
     imageUrl: '',
   });
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/');
-    } else if (!isAdmin(user)) {
-      router.push('/');
-    } else {
-      fetchLocations();
-    }
-  }, [user, router]);
-
   const fetchLocations = async () => {
     try {
       const res = await axios.get('/api/admin/locations');
@@ -44,6 +34,17 @@ export default function LocationsPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/');
+    } else if (!isAdmin(user)) {
+      router.push('/');
+    } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      fetchLocations();
+    }
+  }, [user, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
