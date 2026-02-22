@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
+import * as jose from 'jose';
 
+// Use Jose library for Edge Runtime compatibility
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this';
 
-export function middleware(request) {
+export async function middleware(request) {
   const { pathname } = request.nextUrl;
 
   // Protect all /admin routes except /admin/login
@@ -16,15 +17,21 @@ export function middleware(request) {
     const token = request.cookies.get('token')?.value;
 
     if (!token) {
+      console.log('[Middleware] No token found for:', pathname);
       // Redirect to admin login if no token
       return NextResponse.redirect(new URL('/admin/login', request.url));
     }
 
     try {
-      const decoded = jwt.verify(token, JWT_SECRET);
+      // Use jose library for Edge Runtime compatibility
+      const secret = new TextEncoder().encode(JWT_SECRET);
+      const { payload } = await jose.jwtVerify(token, secret);
+      
+      console.log('[Middleware] Token decoded:', { role: payload.role, email: payload.email, pathname });
       
       // Check if user has admin role in token
-      if (decoded.role !== 'admin') {
+      if (payload.role !== 'admin') {
+        console.log('[Middleware] User is not admin, redirecting');
         // Redirect non-admin users to admin login
         return NextResponse.redirect(new URL('/admin/login', request.url));
       }
@@ -32,6 +39,7 @@ export function middleware(request) {
       // Allow admin users to proceed
       return NextResponse.next();
     } catch (error) {
+      console.log('[Middleware] Token verification failed:', error.message, 'for pathname:', pathname);
       // Invalid token, redirect to admin login
       return NextResponse.redirect(new URL('/admin/login', request.url));
     }

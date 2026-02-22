@@ -26,7 +26,7 @@ export default function ManageUsers() {
   const fetchUsers = useCallback(async () => {
      try {
          const res = await axios.get('/api/admin/users');
-         setUsers(res.data);
+         setUsers(res.data.users || res.data);
          setLoading(false);
      } catch (e) {
          console.error(e);

@@ -20,7 +20,7 @@ export async function GET(request) {
     }
 
     const users = await User.find().select('-password').sort({ createdAt: -1 });
-    return NextResponse.json(users);
+    return NextResponse.json({ users, total: users.length });
 
   } catch (error) {
     return NextResponse.json({ error: "Server Error" }, { status: 500 });
