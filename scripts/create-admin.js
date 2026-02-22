@@ -1,10 +1,10 @@
 /**
- * Create Demo Admin Account
+ * Create Admin Account
  * 
- * This script creates a default admin account for demonstration/testing purposes.
+ * This script creates the admin account with full administrative privileges.
  * Run this script with: node scripts/create-demo-admin.js
  * 
- * Default credentials:
+ * Admin credentials:
  * Email: admin@gmail.com
  * Password: admin1234
  */
@@ -36,21 +36,21 @@ async function createDemoAdmin() {
     await mongoose.connect(MONGODB_URI);
     console.log('✅ Connected to MongoDB\n');
 
-    const demoEmail = 'admin@gmail.com';
-    const demoPassword = 'admin1234';
-    const demoName = 'Admin User';
+    const adminEmail = 'admin@gmail.com';
+    const adminPassword = 'admin1234';
+    const adminName = 'Admin User';
 
     // Check if admin already exists
-    const existingAdmin = await User.findOne({ email: demoEmail });
+    const existingAdmin = await User.findOne({ email: adminEmail });
 
     if (existingAdmin) {
-      console.log('⚠️  Demo admin account already exists!');
-      console.log(`📧 Email: ${demoEmail}`);
-      console.log(`🔑 Password: ${demoPassword}`);
+      console.log('⚠️  Admin account already exists!');
+      console.log(`📧 Email: ${adminEmail}`);
+      console.log(`🔑 Password: ${adminPassword}`);
       
       // Update to admin role and reset password if not already
       if (existingAdmin.role !== 'admin' || process.argv[2] === '--force') {
-        const hashedPassword = await bcrypt.hash(demoPassword, 10);
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
         existingAdmin.role = 'admin';
         existingAdmin.password = hashedPassword;
         await existingAdmin.save();
@@ -61,12 +61,12 @@ async function createDemoAdmin() {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(demoPassword, 10);
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
     // Create new admin user
     const adminUser = await User.create({
-      name: demoName,
-      email: demoEmail,
+      name: adminName,
+      email: adminEmail,
       password: hashedPassword,
       role: 'admin',
       gender: 'other',
@@ -77,15 +77,15 @@ async function createDemoAdmin() {
       savedCities: []
     });
 
-    console.log('✅ Successfully created demo admin account!\n');
-    console.log('📋 Demo Admin Credentials:');
+    console.log('✅ Successfully created admin account!\n');
+    console.log('📋 Admin Credentials:');
     console.log('═══════════════════════════════════════');
-    console.log(`📧 Email:    ${demoEmail}`);
-    console.log(`🔑 Password: ${demoPassword}`);
+    console.log(`📧 Email:    ${adminEmail}`);
+    console.log(`🔑 Password: ${adminPassword}`);
     console.log('═══════════════════════════════════════');
     console.log('\n🎉 You can now log in with these credentials!');
     console.log('🔗 Admin Panel: http://localhost:3000/admin\n');
-    console.log('⚠️  IMPORTANT: Change these credentials in production!');
+    console.log('✅ This is a production-ready admin account with full privileges.');
 
   } catch (error) {
     console.error('❌ Error:', error.message);

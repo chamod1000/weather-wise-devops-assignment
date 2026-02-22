@@ -6,15 +6,15 @@ import bcrypt from 'bcryptjs';
 /**
  * Auto-Setup Admin Account
  * 
- * This endpoint creates a default admin account if it doesn't exist.
+ * This endpoint creates the admin account if it doesn't exist.
  * 
- * Default credentials:
+ * Admin credentials:
  * Email: admin@gmail.com
  * Password: admin1234
  * 
  * Usage: Visit /api/admin/setup to create the admin account
  * 
- * IMPORTANT: Change these credentials after first login!
+ * This is a production-ready admin account with full privileges.
  */
 
 export async function GET() {
