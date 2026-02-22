@@ -1,22 +1,94 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import User from '@/models/User';
-import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this';
+/**
+ * Auto-Setup Admin Account
+ * 
+ * This endpoint creates a default admin account if it doesn't exist.
+ * 
+ * Default credentials:
+ * Email: admin@gmail.com
+ * Password: admin1234
+ * 
+ * Usage: Visit /api/admin/setup to create the admin account
+ * 
+ * IMPORTANT: Change these credentials after first login!
+ */
 
-export async function GET(request) {
+export async function GET() {
   try {
-    const token = request.cookies.get('token')?.value;
-    if (!token) return NextResponse.json({ error: "Please log in first" }, { status: 401 });
-
-    const decoded = jwt.verify(token, JWT_SECRET);
     await dbConnect();
     
-    await User.findByIdAndUpdate(decoded.id, { role: 'admin' });
-
-    return NextResponse.json({ message: "Success! You are now an Admin. Refresh the page." });
+    const adminEmail = 'admin@gmail.com';
+    const adminPassword = 'admin1234';
+    
+    // Check if admin already exists
+    const existingAdmin = await User.findOne({ email: adminEmail });
+    
+    if (existingAdmin) {
+      // Update to admin role if not already
+      if (existingAdmin.role !== 'admin') {
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
+        existingAdmin.role = 'admin';
+        existingAdmin.password = hashedPassword;
+        await existingAdmin.save();
+        
+        return NextResponse.json({ 
+          success: true,
+          message: "Admin account updated successfully!",
+          credentials: {
+            email: adminEmail,
+            password: adminPassword,
+            url: `/admin`
+          }
+        });
+      }
+      
+      return NextResponse.json({ 
+        success: true,
+        message: "Admin account already exists!",
+        credentials: {
+          email: adminEmail,
+          password: adminPassword,
+          url: `/admin`
+        }
+      });
+    }
+    
+    // Create new admin account
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+    
+    await User.create({
+      name: 'Admin User',
+      email: adminEmail,
+      password: hashedPassword,
+      role: 'admin',
+      gender: 'other',
+      isBanned: false,
+      preferences: {
+        unit: 'C'
+      },
+      savedCities: []
+    });
+    
+    return NextResponse.json({ 
+      success: true,
+      message: "Admin account created successfully!",
+      credentials: {
+        email: adminEmail,
+        password: adminPassword,
+        url: `/admin`
+      },
+      warning: "⚠️ IMPORTANT: Change these credentials after first login!"
+    });
+    
   } catch (error) {
-    return NextResponse.json({ error: "One-time setup failed" }, { status: 500 });
+    return NextResponse.json({ 
+      success: false,
+      error: "Failed to setup admin account",
+      details: error.message 
+    }, { status: 500 });
   }
 }
