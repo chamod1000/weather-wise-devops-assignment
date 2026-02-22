@@ -29,11 +29,21 @@ export async function POST(request) {
     await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
     await logAction(user._id, 'LOGIN', 'User logged in');
     
-    const token = jwt.sign({ id: user._id, email: user.email, name: user.name }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ 
+      id: user._id, 
+      email: user.email, 
+      name: user.name, 
+      role: user.role 
+    }, JWT_SECRET, { expiresIn: '7d' });
 
     const response = NextResponse.json({ 
         message: "Logged in successfully",
-        user: { name: user.name, email: user.email, preferences: user.preferences }
+        user: { 
+          name: user.name, 
+          email: user.email, 
+          preferences: user.preferences, 
+          role: user.role 
+        }
     });
     
     response.cookies.set('token', token, {

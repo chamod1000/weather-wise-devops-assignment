@@ -161,7 +161,15 @@ export default function GlobalHeader() {
       </header>
 
       {/* Auth Modals */}
-      {showAuth && <AuthModal onClose={() => setShowAuth(false)} onLogin={(u) => { setUser(u); setShowAuth(false); }} />}
+      {showAuth && <AuthModal onClose={() => setShowAuth(false)} onLogin={(u) => { 
+        // Check if admin and redirect
+        if (u?.role === 'admin') {
+          window.location.href = '/admin';
+        } else {
+          setUser(u); 
+          setShowAuth(false);
+        }
+      }} />}
       {showProfile && <ProfileModal 
         user={user} 
         onClose={() => setShowProfile(false)} 

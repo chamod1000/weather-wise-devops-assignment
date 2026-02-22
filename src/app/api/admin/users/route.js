@@ -86,3 +86,37 @@ export async function DELETE(request) {
     return NextResponse.json({ error: "Server Error" }, { status: 500 });
   }
 }
+
+export async function PATCH(request) {
+  try {
+    const token = request.cookies.get('token')?.value;
+    if (!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const { id, role } = await request.json();
+
+    if (!['user', 'admin'].includes(role)) {
+      return NextResponse.json({ error: "Invalid role" }, { status: 400 });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    await dbConnect();
+    const admin = await User.findById(decoded.id);
+
+    if (!admin || admin.role !== 'admin') {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    if (id === admin._id.toString()) {
+        return NextResponse.json({ error: "Cannot change your own role" }, { status: 400 });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, { role }, { new: true }).select('-password');
+    
+    await logAction(admin._id, 'ADMIN_ACTION', `Changed role of user ${updatedUser.email} to ${role}`);
+
+    return NextResponse.json({ message: "User role updated", user: updatedUser });
+
+  } catch (error) {
+    return NextResponse.json({ error: "Server Error" }, { status: 500 });
+  }
+}

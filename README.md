@@ -1,6 +1,4 @@
-# 🌤️ WeatherWise – Advanced DevOps & Cloud Computing Assignment
----
-![Frontend](public/file.svg)
+# 🌤️ WeatherWise - Advanced DevOps & Cloud Computing Assignment
 
 ## 👥 Group Members
 | Student Name | Student ID | Role |
@@ -18,6 +16,53 @@ This project simulates a real-world software engineering environment by implemen
 
 🔗 **Live Application URL:** https://weather-wise-devops-assignment.vercel.app/
 
+---
+
+## 🔐 Admin Panel Access
+
+### 📍 Admin Panel URL
+**Local:** http://localhost:3000/admin  
+**Live:** https://weather-wise-devops-assignment.vercel.app/admin
+
+### � How to Access Admin Panel
+
+The admin panel has a separate login interface. When you access the admin URL, you'll be directed to a dedicated admin login page.
+
+**Admin Credentials:**
+- **Email:** `admin@gmail.com`
+- **Password:** `admin1234`
+
+**Steps to Access:**
+1. Navigate to `/admin` URL (local or live)
+2. Enter admin credentials in the login form
+3. You'll be automatically redirected to the admin dashboard
+
+**Note:** Admin users have separate authentication and are automatically redirected to the admin panel upon login, not the regular user dashboard.
+
+### 👨‍💻 Creating Admin Accounts
+
+If you need to create additional admin accounts or promote existing users to admin:
+
+```bash
+# Promote any existing user to admin role
+npm run admin:promote your-email@example.com
+
+# Or create a new admin account
+npm run admin:create
+```
+
+### ✨ Admin Panel Features
+- **📊 Analytics Dashboard** - User growth charts, top cities, key metrics
+- **👥 User Management** - Bulk operations, role management, CSV export
+- **💬 Message Moderation** - Reply to messages, status tracking, internal notes
+- **📍 Location Management** - Featured cities, popular rankings
+- **🔔 Notification System** - Broadcast messages with targeting options
+- **📈 API Monitoring** - Performance metrics, endpoint statistics
+- **📋 Activity Logs** - Complete audit trail of system events
+- **⚙️ System Settings** - Rate limits, maintenance mode, data backup
+
+---
+
 ## ⚙️ Build Status
 ![CI Pipeline](https://github.com/chamod1000/weather-wise-devops-assignment/actions/workflows/ci.yml/badge.svg)
 ![Deploy to Production](https://github.com/chamod1000/weather-wise-devops-assignment/actions/workflows/deploy.yml/badge.svg)
@@ -31,35 +76,21 @@ This project simulates a real-world software engineering environment by implemen
 - **Runtime:** Node.js 20+
 - **Version Control:** Git & GitHub
 - **CI/CD:** GitHub Actions (Automated Testing & Deployment)
-- **Cloud Platform:** Vercel
-- **External APIs:** OpenWeatherMap API
+- **Deployment Platform:** Vercel
+- **Version Control:** Git & GitHub
 
----
-## ✨ Features
+## 🌟 Features
+- **Real-time Weather:** Fetches live weather data using OpenWeatherMap API.
+- **5-Day Forecast:** Displays weather trends for the upcoming days.
+- **Favorites System:** Allows users to save favorite cities to a persistent MongoDB database.
+- **City Search:** Search functionality for cities worldwide.
+- **Responsive Design:** Fully responsive UI with Glassmorphism effects.
 
-### 🌐 Frontend & UX
-The frontend is built with a glassmorphism-inspired UI using Tailwind CSS, ensuring a visually stunning and responsive experience across all devices. It includes dynamic weather visualizations, a seamless search experience, and an interactive dashboard for managing favorite locations.
-
-### 💾 Backend & Data Management
-The application connects to a MongoDB Atlas cluster to store user preferences and favorite cities. Custom API routes handle secure communication between the client and the database, ensuring data integrity and fast retrieval times.
-
-### ⚙️ DevOps & Automation
-The project features a robust DevOps implementation:
-- **CI Pipeline:** Automatically installs dependencies, runs linting checks, and builds the project on every push to ensure code quality.
-- **CD Pipeline:** Automatically deploys the application to Vercel only when changes are merged into the `main` branch.
-- **Security:** Secret keys (API keys, DB passwords) are managed via GitHub Secrets and never exposed in the code.
-
----
-
-## 🌱 Branch Strategy
-
-We implemented a professional Git branching strategy to ensure code stability:
-
-- `main` – **Production Branch**: Protected branch. Only deploys to Vercel after passing CI checks.
-- `develop` – **Integration Branch**: All feature branches are merged here first for testing.
-- `feature/*` – **Feature Branches**: Used for individual development (e.g., `feature/ui-design`, `feature/devops-setup`).
-
----
+## 🌿 Branch Strategy
+We implemented a professional Git branching strategy:
+- `main` - **Production Branch**: Protected branch. Only deploys to Vercel after passing CI checks.
+- `develop` - **Integration Branch**: All feature branches are merged here first for testing.
+- `branches/*` - **Feature Branches**: Used for individual development (e.g., `shani/ui-design`, `chamod/ci-setup`).
 
 ## 🧑‍💻 Individual Contributions & Commit Evidence
 
@@ -86,36 +117,17 @@ We actively contributed to the project using professional Git workflows includin
 
 ---
 
-### 👩‍💻 K.A. Shani Randika – ITBIN-2313-0089
-**Role:** Full Stack Developer
+### 2. K.A. Shani Randika (Full Stack Developer)
+- **UI/UX Development:** Designed and built the responsive interface using Tailwind CSS and Next.js.
+- **Backend Integration:** Connected the application to MongoDB Atlas for storing user data.
+- **Feature Implementation:** Developed the City Search, Current Weather display, and Forecast components.
+- **API Handling:** Managed integration with OpenWeatherMap API.
 
-**Key Contributions:**
-- **UI/UX Design:** Designed the responsive interface using Tailwind CSS and Next.js components.
-- **Backend Integration:** Developed MongoDB schemas (`User.js`, `Favorite.js`) and connected the application to MongoDB Atlas.
-- **Feature Development:** Implemented the City Search, Current Weather display, and 5-Day Forecast logic.
-- **API Handling:** Managed integration with OpenWeatherMap API and created internal API routes.
-- **Code cleanup:** Optimized folder structure and removed unused files.
+## 📥 Setup Instructions
 
-**Major Commits & Pull Requests:**
-- `feat: implement weather dashboard ui`
-- `feat: connect mongodb database`
-- `fix: resolve api route errors`
-- `chore: cleanup directory structure`
-
----
-
-### ✅ Collaboration Evidence
-
-- Multiple feature branches created and merged (`chamod`, `develop`).
-- Successful execution of CI/CD pipelines visible in "Actions" tab.
-- Merge conflicts intentionally handled during pipeline configuration.
-- clear separation of concerns between DevOps and Development tasks.
-
----
-# ⚙️ Setup Instructions
-
-## Prerequisites
+### Prerequisites
 - Node.js (v20 or higher)
+- MongoDB installed locally or MongoDB Atlas account
 - Git
 
 ## Installation Steps
@@ -123,42 +135,3 @@ We actively contributed to the project using professional Git workflows includin
 1. **Clone the repository**
    ```bash
    git clone [https://github.com/chamod1000/weather-wise-devops-assignment.git](https://github.com/chamod1000/weather-wise-devops-assignment.git)
-
-## 🗂️ Repository Structure
-
-```text
-weather-wise-devops-assignment/
-├── .github/
-│   └── workflows/               <-- ⚙️ DevOps Automation
-│       ├── ci.yml               # CI Pipeline (Automated Testing)
-│       └── deploy.yml           # CD Pipeline (Vercel Deployment)
-├── public/                      <-- 🖼️ Static Assets (Icons/SVGs)
-├── src/
-│   ├── app/                     <-- 🌐 App Router (Frontend & API)
-│   │   ├── admin/               # Admin Dashboard
-│   │   ├── api/                 # 🔌 Backend API Routes
-│   │   │   ├── admin/
-│   │   │   ├── auth/
-│   │   │   ├── weather/
-│   │   │   └── ...
-│   │   ├── components/          # Page-specific components
-│   │   ├── globals.css          # Global Styles
-│   │   ├── layout.js            # Root Layout
-│   │   └── page.js              # Home Page
-│   ├── components/              <-- 🧩 Reusable UI Components
-│   │   ├── Navbar.js
-│   │   ├── WeatherMap.js
-│   │   └── ...
-│   ├── context/                 <-- 🧠 State Management
-│   │   └── GlobalContext.js
-│   ├── lib/                     <-- 🛠️ Utilities & Configs
-│   │   ├── db.js                # MongoDB Connection
-│   │   └── logger.js            # Error Logger
-│   └── models/                  <-- 🗄️ Database Schemas
-│       ├── User.js
-│       ├── ActivityLog.js
-│       └── ...
-├── .env.local                   <-- 🔐 Environment Variables
-├── .gitignore                   <-- Git Ignore Rules
-├── package.json                 <-- Project Dependencies
-└── README.md                    <-- Project Documentation

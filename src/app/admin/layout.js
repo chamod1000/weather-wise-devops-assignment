@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { LayoutDashboard, Users, LogOut, Home, Activity, Settings, MessageSquare } from 'lucide-react';
+import { LayoutDashboard, Users, LogOut, Home, Activity, Settings, MessageSquare, MapPin, Bell, BarChart3 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function AdminLayout({ children }) {
@@ -22,15 +22,24 @@ export default function AdminLayout({ children }) {
                 <span className="text-blue-500">Admin</span>Panel
             </h1>
         </div>
-        <nav className="flex-1 px-4 flex flex-col gap-2">
+        <nav className="flex-1 px-4 flex flex-col gap-2 overflow-y-auto">
             <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
                 <LayoutDashboard size={20} /> Dashboard
             </Link>
             <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
-                <Users size={20} /> Manage Users
+                <Users size={20} /> Users
             </Link>
             <Link href="/admin/messages" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
                 <MessageSquare size={20} /> Messages
+            </Link>
+            <Link href="/admin/locations" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+                <MapPin size={20} /> Locations
+            </Link>
+            <Link href="/admin/notifications" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+                <Bell size={20} /> Notifications
+            </Link>
+            <Link href="/admin/monitoring" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+                <BarChart3 size={20} /> Monitoring
             </Link>
              <Link href="/admin/logs" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
                 <Activity size={20} /> Activity Logs
@@ -38,7 +47,7 @@ export default function AdminLayout({ children }) {
              <Link href="/admin/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
                 <Settings size={20} /> Settings
             </Link>
-             <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition mt-8 text-blue-300">
+             <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition mt-4 text-blue-300">
                 <Home size={20} /> Back to Site
             </Link>
         </nav>
