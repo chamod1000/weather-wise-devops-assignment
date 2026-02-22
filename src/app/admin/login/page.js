@@ -19,7 +19,8 @@ export default function AdminLogin() {
         if (res.ok) {
           const data = await res.json();
           if (data.user?.role === 'admin') {
-            router.replace('/admin');
+            // Use window.location for full page reload
+            window.location.href = '/admin';
           }
         }
       } catch (error) {
@@ -27,7 +28,7 @@ export default function AdminLogin() {
       }
     };
     checkAuth();
-  }, [router]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +47,8 @@ export default function AdminLogin() {
         // Check if user is admin
         if (data.user?.role === 'admin') {
           toast.success('Welcome back, Admin!');
-          router.push('/admin');
+          // Use window.location for full page reload to ensure cookie is sent
+          window.location.href = '/admin';
         } else {
           toast.error('Access denied. Admin privileges required.');
           // Logout non-admin user
