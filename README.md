@@ -1,6 +1,4 @@
-# 🌤️ WeatherWise – Advanced DevOps & Cloud Computing Assignment
----
-![Project Preview](public/gif/preview.gif)
+# 🌤️ WeatherWise - Advanced DevOps & Cloud Computing Assignment
 
 ## 👥 Group Members
 | Student Name | Student ID | Role |
@@ -78,44 +76,21 @@ npm run admin:create
 - **Runtime:** Node.js 20+
 - **Version Control:** Git & GitHub
 - **CI/CD:** GitHub Actions (Automated Testing & Deployment)
-- **Cloud Platform:** Vercel
-- **Containerization:** Docker & Docker Compose
-- **External APIs:** OpenWeatherMap API
+- **Deployment Platform:** Vercel
+- **Version Control:** Git & GitHub
 
----
-## ✨ Features
+## 🌟 Features
+- **Real-time Weather:** Fetches live weather data using OpenWeatherMap API.
+- **5-Day Forecast:** Displays weather trends for the upcoming days.
+- **Favorites System:** Allows users to save favorite cities to a persistent MongoDB database.
+- **City Search:** Search functionality for cities worldwide.
+- **Responsive Design:** Fully responsive UI with Glassmorphism effects.
 
-### 🌐 Frontend & UX
-The frontend is built with a glassmorphism-inspired UI using Tailwind CSS, ensuring a visually stunning and responsive experience across all devices. It includes dynamic weather visualizations, a seamless search experience, and an interactive dashboard for managing favorite locations.
-
-### 💾 Backend & Data Management
-The application connects to a MongoDB Atlas cluster to store user preferences and favorite cities. Custom API routes handle secure communication between the client and the database, ensuring data integrity and fast retrieval times.
-
-### ⚙️ DevOps & Automation
-The project features a robust DevOps implementation:
-- **CI Pipeline:** Automatically installs dependencies, runs linting checks, and builds the project on every push to ensure code quality.
-- **CD Pipeline:** Automatically deploys the application to Vercel only when changes are merged into the `main` branch.
-- **Docker Containerization:** Multi-stage Dockerfile for optimized production builds, with Docker Compose orchestration for local development.
-- **Security:** Secret keys (API keys, DB passwords) are managed via GitHub Secrets and environment variables, never exposed in the code.
-
-### 🔐 Admin Access Control
-The application includes a comprehensive role-based access control (RBAC) system with JWT-based authentication and middleware protection. Admins have access to an exclusive admin panel with 8 feature categories including analytics dashboard, user management, message moderation, location management, notification system, API monitoring, activity logs, and system settings.
-
-> 📖 **See the [Admin Panel Access](#-admin-panel-access) section above for login credentials and setup instructions**
-
-> 📖 **For detailed Docker architecture and deployment instructions, see [DOCKER_INSTRUCTIONS.md](DOCKER_INSTRUCTIONS.md)**
-
----
-
-## 🌱 Branch Strategy
-
-We implemented a professional Git branching strategy to ensure code stability:
-
-- `main` – **Production Branch**: Protected branch. Only deploys to Vercel after passing CI checks.
-- `develop` – **Integration Branch**: All feature branches are merged here first for testing.
-- `feature/*` – **Feature Branches**: Used for individual development (e.g., `feature/ui-design`, `feature/devops-setup`).
-
----
+## 🌿 Branch Strategy
+We implemented a professional Git branching strategy:
+- `main` - **Production Branch**: Protected branch. Only deploys to Vercel after passing CI checks.
+- `develop` - **Integration Branch**: All feature branches are merged here first for testing.
+- `branches/*` - **Feature Branches**: Used for individual development (e.g., `shani/ui-design`, `chamod/ci-setup`).
 
 ## 🧑‍💻 Individual Contributions & Commit Evidence
 
@@ -142,115 +117,13 @@ We actively contributed to the project using professional Git workflows includin
 
 ---
 
-### 👩‍💻 K.A. Shani Randika – ITBIN-2313-0089
-**Role:** Full Stack Developer
+### 2. K.A. Shani Randika (Full Stack Developer)
+- **UI/UX Development:** Designed and built the responsive interface using Tailwind CSS and Next.js.
+- **Backend Integration:** Connected the application to MongoDB Atlas for storing user data.
+- **Feature Implementation:** Developed the City Search, Current Weather display, and Forecast components.
+- **API Handling:** Managed integration with OpenWeatherMap API.
 
-**Key Contributions:**
-- **UI/UX Design:** Designed the responsive interface using Tailwind CSS and Next.js components.
-- **Backend Integration:** Developed MongoDB schemas (`User.js`, `Favorite.js`) and connected the application to MongoDB Atlas.
-- **Feature Development:** Implemented the City Search, Current Weather display, and 5-Day Forecast logic.
-- **API Handling:** Managed integration with OpenWeatherMap API and created internal API routes.
-- **Code cleanup:** Optimized folder structure and removed unused files.
-
-**Major Commits & Pull Requests:**
-- `feat: implement weather dashboard ui`
-- `feat: connect mongodb database`
-- `fix: resolve api route errors`
-- `chore: cleanup directory structure`
-
----
-
-### ✅ Collaboration Evidence
-
-- Multiple feature branches created and merged (`chamod`, `develop`).
-- Successful execution of CI/CD pipelines visible in "Actions" tab.
-- Merge conflicts intentionally handled during pipeline configuration.
-- clear separation of concerns between DevOps and Development tasks.
-
----
-# ⚙️ Setup Instructions
-
-## 🐳 Docker Deployment (Recommended)
-
-### Prerequisites
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed (includes Docker Engine & Docker Compose)
-- Git (for cloning the repository)
-
-### Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/chamod1000/weather-wise-devops-assignment.git
-   cd weather-wise-devops-assignment
-   ```
-
-2. **Create environment configuration**
-   
-   Create a `.env.local` file in the project root with the following variables:
-   ```env
-   # OpenWeatherMap API Key (Get from https://openweathermap.org/api)
-   OPENWEATHER_API_KEY=your_api_key_here
-   
-   # MongoDB Connection (pre-configured for Docker)
-   MONGODB_URI=mongodb://mongodb:27017/weather-dashboard
-   
-   # JWT Secret for Authentication (generate with: openssl rand -base64 32)
-   JWT_SECRET=your_jwt_secret_key_here
-   ```
-
-3. **Build and run the application**
-   ```bash
-   docker-compose up --build
-   ```
-   
-   The `--build` flag ensures images are rebuilt with latest code changes.
-   Initial build takes 3-5 minutes as it downloads dependencies.
-
-4. **Access the application**
-   
-   Once you see "Ready in [x]ms" in the terminal:
-   - **Application:** http://localhost:3000
-   - **Database:** MongoDB running on port 27017 (internal)
-
-### Docker Commands Reference
-
-| Command | Description |
-|---------|-------------|
-| `docker-compose up` | Start all services (use cached images) |
-| `docker-compose up --build` | Rebuild images and start services |
-| `docker-compose up -d` | Start services in detached mode (background) |
-| `docker-compose down` | Stop and remove containers |
-| `docker-compose down -v` | Stop containers and delete volumes (⚠️ deletes data) |
-| `docker-compose logs -f` | View real-time logs from all services |
-| `docker-compose ps` | List running containers |
-| `docker-compose exec weather-app sh` | Access application container shell |
-
-### Environment Variables
-
-| Variable | Required | Description | Default |
-|----------|----------|-------------|---------|
-| `OPENWEATHER_API_KEY` | ✅ Yes | API key from OpenWeatherMap | None |
-| `MONGODB_URI` | ✅ Yes | MongoDB connection string | `mongodb://mongodb:27017/weather-dashboard` |
-| `JWT_SECRET` | ✅ Yes | Secret key for JWT authentication | None |
-| `NODE_ENV` | No | Environment mode | `production` (in Docker) |
-
-### Troubleshooting Docker Issues
-
-**Problem:** "Connection refused" when connecting to MongoDB
-- **Solution:** MongoDB health check ensures it's ready. Wait 10-15 seconds after startup.
-
-**Problem:** Changes not reflected after rebuild
-- **Solution:** Clear Docker cache: `docker-compose build --no-cache`
-
-**Problem:** Port 3000 or 27017 already in use
-- **Solution:** Stop conflicting services or change ports in `docker-compose.yml`
-
-**Problem:** Out of disk space
-- **Solution:** Clean unused Docker resources: `docker system prune -a --volumes`
-
----
-
-## 💻 Local Development (Without Docker)
+## 📥 Setup Instructions
 
 ### Prerequisites
 - Node.js (v20 or higher)
@@ -261,78 +134,4 @@ We actively contributed to the project using professional Git workflows includin
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/chamod1000/weather-wise-devops-assignment.git
-   cd weather-wise-devops-assignment
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables**
-   
-   Create `.env.local` with:
-   ```env
-   OPENWEATHER_API_KEY=your_api_key_here
-   MONGODB_URI=mongodb://localhost:27017/weather-dashboard  # or your MongoDB Atlas URI
-   JWT_SECRET=your_jwt_secret_key_here
-   ```
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Access the application**
-   
-   Open http://localhost:3000 in your browser
-
-6. **Setup Admin Access (Optional)**
-   
-   See the [Admin Panel Access](#-admin-panel-access) section above for detailed setup instructions.
-
----
-
-## 🗂️ Repository Structure
-
-```text
-weather-wise-devops-assignment/
-├── .github/
-│   └── workflows/               <-- ⚙️ DevOps Automation
-│       ├── ci.yml               # CI Pipeline (Automated Testing)
-│       └── deploy.yml           # CD Pipeline (Vercel Deployment)
-├── public/                      <-- 🖼️ Static Assets (Icons/SVGs)
-├── src/
-│   ├── app/                     <-- 🌐 App Router (Frontend & API)
-│   │   ├── admin/               # Admin Dashboard
-│   │   ├── api/                 # 🔌 Backend API Routes
-│   │   │   ├── admin/
-│   │   │   ├── auth/
-│   │   │   ├── weather/
-│   │   │   └── ...
-│   │   ├── components/          # Page-specific components
-│   │   ├── globals.css          # Global Styles
-│   │   ├── layout.js            # Root Layout
-│   │   └── page.js              # Home Page
-│   ├── components/              <-- 🧩 Reusable UI Components
-│   │   ├── Navbar.js
-│   │   ├── WeatherMap.js
-│   │   └── ...
-│   ├── context/                 <-- 🧠 State Management
-│   │   └── GlobalContext.js
-│   ├── lib/                     <-- 🛠️ Utilities & Configs
-│   │   ├── db.js                # MongoDB Connection
-│   │   └── logger.js            # Error Logger
-│   └── models/                  <-- 🗄️ Database Schemas
-│       ├── User.js
-│       ├── ActivityLog.js
-│       └── ...
-├── .env.local                   <-- 🔐 Environment Variables (git-ignored)
-├── .gitignore                   <-- Git Ignore Rules
-├── .dockerignore                <-- 🐳 Docker Build Exclusions
-├── docker-compose.yml           <-- 🐳 Multi-Container Orchestration
-├── Dockerfile                   <-- 🐳 Container Image Definition
-├── DOCKER_INSTRUCTIONS.md       <-- 📖 Docker Architecture Documentation
-├── package.json                 <-- Project Dependencies
-└── README.md                    <-- Project Documentation
+   git clone [https://github.com/chamod1000/weather-wise-devops-assignment.git](https://github.com/chamod1000/weather-wise-devops-assignment.git)
