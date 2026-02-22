@@ -23,7 +23,7 @@ export async function GET(request) {
     return NextResponse.json(logs);
 
   } catch (error) {
-    console.log(error);
+    console.error("Activity Logs Error:", error.message);
     return NextResponse.json({ error: "Server Error" }, { status: 500 });
   }
 }

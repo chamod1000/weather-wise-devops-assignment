@@ -121,24 +121,34 @@ export default function AdminDashboard() {
                     <h3 className="text-lg font-bold text-slate-800">User Growth (Last 30 Days)</h3>
                 </div>
                 <ResponsiveContainer width="100%" height={250}>
-                    <LineChart data={stats.userGrowth}>
+                    <LineChart data={stats.userGrowth} margin={{ bottom: 10 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                         <XAxis 
                             dataKey="date" 
-                            tick={{ fontSize: 11 }}
+                            tick={{ fontSize: 12, fill: '#475569' }}
                             tickFormatter={(date) => new Date(date).getDate()}
+                            label={{ value: 'Day of Month', position: 'insideBottom', offset: -5, style: { fontSize: 12, fill: '#64748b' } }}
                         />
-                        <YAxis tick={{ fontSize: 11 }} />
+                        <YAxis 
+                            tick={{ fontSize: 12, fill: '#475569' }}
+                            label={{ value: 'New Users', angle: -90, position: 'insideLeft', style: { fontSize: 12, fill: '#64748b' } }}
+                        />
                         <Tooltip 
-                            contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                            contentStyle={{ 
+                                borderRadius: '12px', 
+                                border: '1px solid #e2e8f0',
+                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                fontSize: '13px'
+                            }}
                             labelFormatter={(date) => new Date(date).toLocaleDateString()}
                         />
                         <Line 
                             type="monotone" 
                             dataKey="count" 
                             stroke="#3b82f6" 
-                            strokeWidth={2}
-                            dot={{ fill: '#3b82f6', r: 3 }}
+                            strokeWidth={3}
+                            dot={{ fill: '#3b82f6', r: 4 }}
+                            activeDot={{ r: 6 }}
                             name="New Users"
                         />
                     </LineChart>
@@ -153,17 +163,27 @@ export default function AdminDashboard() {
                 </div>
                 {stats.topCities.length > 0 ? (
                     <ResponsiveContainer width="100%" height={250}>
-                        <BarChart data={stats.topCities}>
+                        <BarChart data={stats.topCities} margin={{ bottom: 50 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                             <XAxis 
                                 dataKey="name" 
-                                tick={{ fontSize: 11 }}
-                                angle={-45}
+                                tick={{ fontSize: 12, fill: '#475569' }}
+                                angle={-35}
                                 textAnchor="end"
-                                height={80}
+                                height={70}
                             />
-                            <YAxis tick={{ fontSize: 11 }} />
-                            <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                            <YAxis 
+                                tick={{ fontSize: 12, fill: '#475569' }}
+                                label={{ value: 'Users', angle: -90, position: 'insideLeft', style: { fontSize: 12, fill: '#64748b' } }}
+                            />
+                            <Tooltip 
+                                contentStyle={{ 
+                                    borderRadius: '12px', 
+                                    border: '1px solid #e2e8f0',
+                                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                    fontSize: '13px'
+                                }}
+                            />
                             <Bar dataKey="count" fill="#10b981" radius={[8, 8, 0, 0]} name="Users" />
                         </BarChart>
                     </ResponsiveContainer>

@@ -400,8 +400,14 @@ export function AuthModal({ onClose, onLogin }) {
         try {
             const res = await axios.post(url, formData);
             if (isLogin) {
-                onLogin(res.data.user);
-                onClose();
+                // Check if user is admin and redirect accordingly
+                if (res.data.user?.role === 'admin') {
+                    toast.success('Welcome back, Admin!');
+                    window.location.href = '/admin';
+                } else {
+                    onLogin(res.data.user);
+                    onClose();
+                }
             } else {
                 setIsLogin(true);
                 setFormData({...formData, password: ''});
