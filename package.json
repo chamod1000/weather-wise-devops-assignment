@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "admin:create": "node scripts/create-demo-admin.js",
+    "admin:create": "node scripts/create-admin.js",
     "admin:promote": "node scripts/setup-admin.js"
   },
   "dependencies": {
