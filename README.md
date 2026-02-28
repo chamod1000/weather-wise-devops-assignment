@@ -117,11 +117,14 @@ We actively contributed to the project using professional Git workflows includin
 
 ---
 
-### 2. K.A. Shani Randika (Full Stack Developer)
+### 2. K.A. Shani Randika - ITBIN-2313-0089
+**Role:** FullStack Developer
 - **UI/UX Development:** Designed and built the responsive interface using Tailwind CSS and Next.js.
 - **Backend Integration:** Connected the application to MongoDB Atlas for storing user data.
 - **Feature Implementation:** Developed the City Search, Current Weather display, and Forecast components.
 - **API Handling:** Managed integration with OpenWeatherMap API.
+
+---
 
 ## 📥 Setup Instructions
 
@@ -129,9 +132,110 @@ We actively contributed to the project using professional Git workflows includin
 - Node.js (v20 or higher)
 - MongoDB installed locally or MongoDB Atlas account
 - Git
+- Docker Desktop (for containerized deployment)
 
-## Installation Steps
+---
+
+## 🐳 Docker Deployment (Recommended)
+
+The easiest way to run WeatherWise is using Docker. This method handles all dependencies and database setup automatically.
+
+### Quick Start with Docker
 
 1. **Clone the repository**
    ```bash
-   git clone [https://github.com/chamod1000/weather-wise-devops-assignment.git](https://github.com/chamod1000/weather-wise-devops-assignment.git)
+   git clone https://github.com/chamod1000/weather-wise-devops-assignment.git
+   cd weather-wise-devops-assignment
+   ```
+
+2. **Create environment file**
+   
+   Create a `.env.local` file in the root directory:
+   ```env
+   OPENWEATHER_API_KEY=your_openweather_api_key_here
+   MONGODB_URI=mongodb://mongodb:27017/weather-dashboard
+   JWT_SECRET=your_jwt_secret_key_change_in_production
+   ```
+
+3. **Build and start the application**
+   ```bash
+   docker-compose up --build
+   ```
+
+4. **Access the application**
+   - **Application:** http://localhost:3000
+   - **Admin Panel:** http://localhost:3000/admin
+
+### Docker Architecture
+
+The Docker setup includes:
+- **weather-app**: Next.js application (Node.js 20 Alpine)
+- **mongodb**: Database server with persistent data storage
+- **Custom network**: Allows seamless container communication
+- **Health checks**: Ensures proper startup sequence
+
+### Stopping the Application
+
+```bash
+# Stop containers (keeps data)
+docker-compose down
+
+# Stop containers and remove data
+docker-compose down -v
+```
+
+### 📖 Full Docker Documentation
+
+For detailed information including:
+- Multi-stage build architecture
+- Resource management and limits
+- Security considerations
+- Troubleshooting guide
+- Network architecture details
+
+**See:** [DOCKER_INSTRUCTIONS.md](DOCKER_INSTRUCTIONS.md)
+
+---
+
+## 💻 Manual Installation (Without Docker)
+
+If you prefer to run the application without Docker:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/chamod1000/weather-wise-devops-assignment.git
+   cd weather-wise-devops-assignment
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   
+   Create a `.env.local` file:
+   ```env
+   OPENWEATHER_API_KEY=your_openweather_api_key_here
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   ```
+
+4. **Start MongoDB** (if running locally)
+   ```bash
+   mongod
+   ```
+
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. **Build for production** (optional)
+   ```bash
+   npm run build
+   npm start
+   ```
+
+---
+
